@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { Row, Col, ListGroup, Image, Card } from 'react-bootstrap';
+import { Row, Col, ListGroup, Image, Card, Button } from 'react-bootstrap';
 import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 
-import { useGetOrderDetailsQuery, usePayOrderMutation, useGetPayPalClientIdQuery } from '../slices/ordersApiSlice';
+import { useGetOrderDetailsQuery, usePayOrderMutation, useGetPayPalClientIdQuery, useDeliverOrderMutation } from '../slices/ordersApiSlice';
 
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -15,16 +15,18 @@ const OrderScreen = () => {
   const { id: orderId } = useParams();
   // to access order details
   const { data: order, refetch, isLoading, error } = useGetOrderDetailsQuery(orderId);
-
+  console.log(order);
   // payment:
   // to access payOrder mutation
   const [payOrder, { isLoading: loadingPay }] = usePayOrderMutation();
+  // to access deliverOrder mutation once admin has updated to delivered
+  const [deliverOrder, { isLoading: loadingDeliver }] = useDeliverOrderMutation(orderId); // NOT passing in (orderId) works too? ...why?
   // to access Paypal reducer
   const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
   // to acccess data from paypal res (to get client id)
   const { data: paypal, isLoading: loadingPayPal, error: errorPayPal } = useGetPayPalClientIdQuery();
 
-  // bring in user data // seems we dont need it...?
+  // bring in user data // we need it to identify user as admin for the admin button 'delivered'
   const { userInfo } = useSelector(state => state.auth);
 
   // to load the paypal script:
@@ -86,6 +88,16 @@ const OrderScreen = () => {
       });
   }
 
+  const deliverOrderHandler = async () => {
+    try {
+      await deliverOrder(orderId);
+      refetch(); // because we want toast message to update to green/delivered
+      toast.success('Order delivered');
+    } catch (error) {
+      toast.error(error?.data?.message || error.message);
+    }
+  };
+
   return isLoading ? (
     <Loader />
   ) : error ? (
@@ -110,7 +122,7 @@ const OrderScreen = () => {
                       />
                     </Col>
                     <Col>
-                      <Link to={`/products/${item.product}`}>{item.name}</Link>
+                      <Link to={`/product/${item.product}`}>{item.name}</Link>
                     </Col>
                     <Col md={4}>
                       {item.qty} x ${item.price} = ${item.qty * item.price}
@@ -134,7 +146,7 @@ const OrderScreen = () => {
                 <strong>Address:</strong>
                 {order.shippingAddress.address}, {order.shippingAddress.city}, {order.shippingAddress.postalCode}, {order.shippingAddress.country}
               </p>
-              {order.isdelivered ? <Message variant='success'>Delivered on {order.deliveredAt}</Message> : <Message variant='danger'>Not delivered</Message>}
+              {order.isDelivered ? <Message variant='success'>Delivered on {order.deliveredAt}</Message> : <Message variant='danger'>Not delivered</Message>}
             </ListGroup.Item>
 
             <ListGroup.Item>
@@ -199,16 +211,18 @@ const OrderScreen = () => {
                   )}
                 </ListGroup.Item>
               )}
-
               {/* MARK AS DELIVERED BTN (ADMIN ONLY)  */}
-              {/* <Button
-                type='button'
-                className='btn-block'
-                // onClick={payOrderHandler}
-              >
-                Mark as delivered
-              </Button> */}
-              {isLoading && <Loader />}
+              {loadingDeliver && <Loader />}
+              {userInfo && userInfo.isAdmin && order.isPaid && !order.isDelivered && (
+                <ListGroup.Item>
+                  <Button
+                    type='button'
+                    className='btn btn-block'
+                    onClick={deliverOrderHandler}>
+                    Mark as delivered
+                  </Button>
+                </ListGroup.Item>
+              )}
             </ListGroup>
           </Card>
         </Col>

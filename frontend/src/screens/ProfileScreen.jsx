@@ -29,6 +29,7 @@ const ProfileScreen = () => {
 
   const [updateProfile, { isLoading: loadingUpdateProfile }] = useProfileMutation();
   const { data: orders, isLoading, error } = useGetMyOrdersQuery();
+  console.log(orders);
 
   useEffect(() => {
     if (userInfo) {
@@ -57,7 +58,7 @@ const ProfileScreen = () => {
   return (
     <Row>
       <Col md={3}>
-        <h2>User profile</h2>
+        <h2>My profile</h2>
         <Form onSubmit={submitHandler}>
           <Form.Group
             controlId='name'

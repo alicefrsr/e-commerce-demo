@@ -1,11 +1,16 @@
 // import { useEffect, useState } from 'react'; // no need now (redux)
 // import axios from 'axios'; // no need now (redux)
 import { useGetProductsQuery } from '../slices/productsApiSlice';
+
 import { Row, Col } from 'react-bootstrap';
+import { useParams, Link } from 'react-router-dom';
 // import products from '../products';
 import Product from '../components/Product';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
+import Paginate from '../components/Paginate';
+import ProductCarousel from '../components/ProductCarousel';
+// import Meta from '../components/Meta';
 
 const HomeScreen = () => {
   // const [products, setProducts] = useState([]); // no need for products in our component state
@@ -18,19 +23,34 @@ const HomeScreen = () => {
   //   fetchProducts();
   // }, []);
 
-  const { data: products, isLoading, error } = useGetProductsQuery();
+  // const { data: products, isLoading, error } = useGetProductsQuery();
+  // pagination and search:
+  const { pageNumber, keyword } = useParams();
+  const { data, isLoading, error } = useGetProductsQuery({ keyword, pageNumber });
+  // data is now an object with products, page, pageSize
 
   return (
     <>
+      {!keyword ? (
+        <ProductCarousel />
+      ) : (
+        <Link
+          to='/'
+          className='btn btn-light my-3'>
+          Go back
+        </Link>
+      )}
+
       {isLoading ? (
         <Loader />
       ) : error ? (
         <Message variant='danger'>{error?.data?.message || error.error}</Message>
       ) : (
         <>
+          {/* <Meta /> */}
           <h1>Latest Products</h1>
           <Row>
-            {products.map(product => (
+            {data.products.map(product => (
               <Col
                 key={product._id}
                 sm={12}
@@ -41,6 +61,11 @@ const HomeScreen = () => {
               </Col>
             ))}
           </Row>
+          <Paginate
+            pages={data.pages}
+            page={data.page}
+            keyword={keyword}
+          />
         </>
       )}
     </>

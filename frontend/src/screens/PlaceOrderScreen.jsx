@@ -17,7 +17,7 @@ const PlaceOrderScreen = () => {
   // get cart state so we can access cartItems, shipping + payment details, prices etc from cart state:
   const cart = useSelector(state => state.cart);
   //   const { cartItems, shippingAddress, paymentMethod, itemsPrice } = cart;
-
+  console.log(cart.cartItems);
   const [createOrder, { isLoading, error }] = useCreateOrderMutation();
 
   useEffect(() => {
@@ -76,7 +76,7 @@ const PlaceOrderScreen = () => {
                           />
                         </Col>
                         <Col>
-                          <Link to={`/products/${item.product}`}>{item.name}</Link>
+                          <Link to={`/product/${item._id}`}>{item.name}</Link>
                         </Col>
                         <Col md={4}>
                           {item.qty} x ${item.price} = ${item.qty * item.price}

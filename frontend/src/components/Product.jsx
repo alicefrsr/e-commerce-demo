@@ -8,6 +8,7 @@ const Product = ({ product }) => {
       <Link to={`/product/${product._id}`}>
         <Card.Img
           src={product.image}
+          alt={product.image}
           variant='top'
         />
       </Link>
