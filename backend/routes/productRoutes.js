@@ -13,7 +13,8 @@ import {
 } from '../controllers/productController.js';
 import { protect, admin } from '../middleware/authMiddleware.js';
 
-router
+router // this router (productRouter) is a mw fn we want to use on /api/products:
+  // so in server: app.use('/api/products', productRoutes);
   .route('/') // (= '/api/products')
   .get(getProducts)
   .post(protect, admin, createProduct);
@@ -24,4 +25,4 @@ router.route('/:id').get(getProductById).put(protect, admin, updateProduct).dele
 
 router.route('/:id/reviews').post(protect, createProductReview);
 
-export default router;
+export default router; // (module.exports = router in CommonJS)

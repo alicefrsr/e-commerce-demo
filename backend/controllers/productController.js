@@ -55,6 +55,12 @@ const createProduct = asyncHandler(async (req, res, next) => {
 
   const newProduct = await product.save();
   res.status(201).json(newProduct);
+
+  // // create method called on the Model:
+  // const newProduct = await Product.create(req.body);
+  // res.status(201).json(newProduct);
+  // // or
+  // res.status(201).json({ status: 'success', data: { product: newProduct } });
 });
 
 // @desc Update a product
@@ -74,6 +80,16 @@ const updateProduct = asyncHandler(async (req, res, next) => {
 
     const updatedProduct = await product.save();
     res.status(200).json(updatedProduct);
+
+    // // or findByIdAndUpdate method called on the Model:
+    // const updatedProduct = await Product.findByIdAndUpdate(req.params.id, req.body, {
+    // new: true,
+    // runValidators: true
+    // }
+    // );
+    // res.status(200).json(updatedProduct);
+    // // or
+    // res.status(200).json({ status: 'success', data: { product: updatedProduct } });
   } else {
     res.status(404);
     throw new Error('Product not found');

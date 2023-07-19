@@ -3,6 +3,7 @@ import { apiSlice } from './apiSlice';
 
 export const usersApiSlice = apiSlice.injectEndpoints({
   endpoints: builder => ({
+    // use in LoginScreen
     login: builder.mutation({
       query: data => ({
         url: `${USERS_URL}/login`,
@@ -11,6 +12,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       }),
     }),
 
+    // use in RegisterScreen
     register: builder.mutation({
       query: data => ({
         url: `${USERS_URL}`,
@@ -26,6 +28,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       }),
     }),
 
+    // use in ProfileScreen
     profile: builder.mutation({
       query: data => ({
         url: `${USERS_URL}/profile`,
@@ -35,6 +38,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
     }),
 
     // admin functionality
+
     getUsers: builder.query({
       query: () => ({
         url: USERS_URL,
@@ -57,7 +61,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         method: 'PUT',
         body: data,
       }),
-      invalidatesTags: ['User'], // clear cache // works with ['Users'] too
+      invalidatesTags: ['Users'], // clear cache // wasn't working with ['User']
     }),
 
     deleteUser: builder.mutation({

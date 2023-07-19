@@ -38,14 +38,17 @@ const cartSlice = createSlice({
 
       return updateCart(state);
     },
+    // use in ShippingScreen
     saveShippingAddress: (state, action) => {
       state.shippingAddress = action.payload;
       return updateCart(state);
     },
+    // use in PaymentScreen
     savePaymentMethod: (state, action) => {
       state.paymentMethod = action.payload;
       return updateCart(state);
     },
+    // use in PlaceOrderScreen
     clearCartItems: (state, action) => {
       state.cartItems = [];
       return updateCart(state);

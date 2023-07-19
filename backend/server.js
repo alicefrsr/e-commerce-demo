@@ -2,13 +2,15 @@ import express, { json } from 'express';
 import colors from 'colors';
 // import products from './data/products.js';
 import dotenv from 'dotenv';
-dotenv.config();
+dotenv.config(); // no need to pass in where the file is located ie dotenv.config({path: './config.env'})
 import cookieParser from 'cookie-parser';
 import connectDB from './config/db.js';
+
 import productRoutes from './routes/productRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
 import uploadRoutes from './routes/uploadRoutes.js';
+
 import path from 'path';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 
@@ -21,7 +23,7 @@ connectDB();
 const app = express();
 
 // body parser middleware
-app.use(express.json()); // for raw json data
+app.use(express.json()); // to parse raw json data into js
 app.use(express.urlencoded({ extended: true })); // for url encoded data
 
 // cookie parser middleware
