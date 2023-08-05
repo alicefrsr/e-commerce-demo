@@ -46,7 +46,7 @@ if (process.env.NODE_ENV === 'production') {
   // npm run build creates a build folder with all static assets --> set it to static folder.
   app.use(express.static(path.join(__dirname, '/frontend/build')));
 
-  // any route that is not api (lines 31-34) will be redirected to index.html
+  // any route that is not api (lines 33-36) will be redirected to index.html
   app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html')));
 } else {
   app.get('/', (req, res) => res.send('ProShop API is running...'));
