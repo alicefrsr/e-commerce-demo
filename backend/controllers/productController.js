@@ -118,34 +118,29 @@ const createProductReview = asyncHandler(async (req, res, next) => {
   const product = await Product.findById(req.params.id);
   if (product) {
     // check if user (req.user._id.toString()) has already reviewed the product
-    // const alreadyReviewed = product.reviews.find(review => review.user.toString() === req.user._id.toString());
-    // console.log(product);
+    const alreadyReviewed = product.reviews.find(review => review.user.toString() === req.user._id.toString());
 
-    // if (alreadyReviewed) {
-    //   res.status(400);
-    //   throw new Error('You have already reviewed this product');
-    // }
+    if (alreadyReviewed) {
+      res.status(400);
+      throw new Error('You have already reviewed this product');
+    }
     const review = {
       name: req.user.name,
       rating: Number(rating),
       comment,
       user: req.user._id,
     };
-    console.log(typeof rating); // number
     product.reviews.push(review);
 
     product.numReviews = product.reviews.length;
 
-    product.rating = product.reviews.reduce((review, acc) => review.rating + acc, 0) / product.reviews.length;
-    console.log(typeof product.rating); // undefined
+    product.rating = product.reviews.reduce((acc, review) => review.rating + acc, 0) / product.reviews.length;
 
     await product.save();
     res.status(201).json({ message: 'Review added' });
   } else {
     res.status(404);
     throw new Error('Product not found');
-    console.log('error block');
-    console.log(typeof rating);
   }
 });
 
