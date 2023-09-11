@@ -26,7 +26,7 @@ Log in/out, search for products, place order, pay (Paypal), view orders, view an
 #### Admin:
 When logged in as admin, user can add and update products, update users and orders, mark ordered as delivered.
 
-## Build & Deploy
+## Usage
 
 ### Requirements
 
