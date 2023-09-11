@@ -1,6 +1,6 @@
 # e-commerce-demo
 
-> Fullstack e-commerce built with MERN stack & Redux, following Brad Traversy's ProShop tutorial.
+> Fullstack e-commerce built with MERN stack & Redux, following Brad Traversy's ProShop tutorial https://www.udemy.com/course/mern-ecommerce/
 
 Built to learn: Redux for React state management, implementing a backend server with Express, setting up a database with MongoDB.
 
@@ -26,6 +26,8 @@ Log in/out, search for products, place order, pay (Paypal), view orders, view an
 #### Admin:
 When logged in as admin, user can add and update products, update users and orders, mark ordered as delivered.
 
+## Build & Deploy
+
 ### Requirements
 
 Node v14.6+ or you will need to add the "--experimental-modules" flag.
@@ -35,11 +37,11 @@ Node v14.6+ or you will need to add the "--experimental-modules" flag.
 Create a .env file in the root folder and add the following:
 
 ```
-NODE_ENV = development
-PORT = 5000
-MONGO_URI = your mongodb uri
-JWT_SECRET = 'abc123'
-PAYPAL_CLIENT_ID = your paypal client id
+NODE_ENV=development
+PORT=5000
+MONGO_URI=ADD_YOUR_MONGO_URI
+JWT_SECRET=ADD_YOUR_SECRET
+PAYPAL_CLIENT_ID=ADD_YOUR_PAYPAL_CLIENT_ID
 ```
 
 ### Install Dependencies (frontend & backend)
