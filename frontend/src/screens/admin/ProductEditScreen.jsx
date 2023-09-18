@@ -6,7 +6,6 @@ import Loader from '../../components/Loader';
 import { toast } from 'react-toastify';
 import FormContainer from '../../components/FormContainer';
 
-// import { useSelector } from 'react-redux';
 import { useGetProductDetailsQuery, useUpdateProductMutation, useUploadProductImageMutation } from '../../slices/productsApiSlice';
 
 const ProductEditScreen = () => {
