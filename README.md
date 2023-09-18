@@ -1,8 +1,14 @@
 # e-commerce-demo
 
-> Fullstack e-commerce built with MERN stack & Redux, following Brad Traversy's ProShop tutorial https://www.udemy.com/course/mern-ecommerce/
+> Fullstack e-commerce built with MERN stack & Redux, following Brad Traversy's
+> ProShop tutorial: https://www.udemy.com/course/mern-ecommerce/
 
-Built to learn: Redux for React state management, implementing a backend server with Express, setting up a database with MongoDB.
+Built to learn: Redux for React state management, implementing a backend server
+with Express, setting up a database with MongoDB.
+
+### Live demo:
+
+https://e-commerce-demo-proshop.onrender.com/
 
 ### Functionalities / Features:
 
@@ -21,10 +27,14 @@ Built to learn: Redux for React state management, implementing a backend server 
 - Database seeder (products & users)
 
 #### User:
-Log in/out, search for products, place order, pay (Paypal), view orders, view and update profile, write product reviews.
+
+Log in/out, search for products, place order, pay (Paypal), view orders, view
+and update profile, write product reviews.
 
 #### Admin:
-When logged in as admin, user can add and update products, update users and orders, mark ordered as delivered.
+
+When logged in as admin, user can add and update products, update users and
+orders, mark ordered as delivered.
 
 ## Usage
 
@@ -72,7 +82,8 @@ npm run build
 
 ### Seed Database
 
-You can use the following commands to seed the database with some sample users and products as well as destroy all data
+You can use the following commands to seed the database with some sample users
+and products as well as destroy all data
 
 ```
 # Import data
@@ -85,17 +96,16 @@ npm run data:destroy
 ```
 Sample User Logins
 
-admin@example.com (Admin)
+admin@email.com (Admin)
 123456
 
-john@example.com (Customer)
+john@email.com (Customer)
 123456
 
-jane@example.com (Customer)
+jane@email.com (Customer)
 123456
 ```
 
 ## License
 
-The MIT License
-Copyright (c) 2020 Traversy Media https://traversymedia.com
+The MIT License Copyright (c) 2020 Traversy Media https://traversymedia.com
