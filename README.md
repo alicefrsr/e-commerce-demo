@@ -3,8 +3,8 @@
 > Fullstack e-commerce built with MERN stack & Redux, following Brad Traversy's
 > ProShop tutorial: https://www.udemy.com/course/mern-ecommerce/
 
-Built to learn: Redux for React state management, implementing a backend server
-with Express, setting up a database with MongoDB.
+Built to learn: React, Redux, implementing a backend server with Express,
+setting up a database with MongoDB.
 
 ### Live demo:
 
